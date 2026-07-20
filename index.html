@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kanak2 Pintar - Aplikasi Pembelajaran Awal V2</title>
+    <title>Kanak2 Pintar - Aplikasi Pembelajaran Awal</title>
     <!-- Tailwind CSS untuk Reka Bentuk Responsif & Ceria -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Google Fonts - Fredoka (Font bulat & mesra kanak-kanak) -->
@@ -26,9 +26,6 @@
         @keyframes popIn {
             0% { transform: scale(0.9); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
-        }
-        .shape-preview {
-            transition: all 0.3s ease;
         }
     </style>
 </head>
@@ -68,7 +65,7 @@
             <h2 id="txt-welcome" class="text-3xl md:text-4xl font-extrabold text-purple-600 mb-2 drop-shadow-sm">Jom Belajar Sambil Bermain!</h2>
             <p id="txt-subtitle" class="text-gray-600 text-lg md:text-xl mb-8">Pilih menu kegemaran adik di bawah:</p>
             
-            <!-- Grid Menu Pilihan Modul Terkini (5 Pilihan Utama) -->
+            <!-- Grid Menu Pilihan Modul Terkini -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full px-4 justify-center">
                 <!-- Menu ABC -->
                 <div onclick="showScreen('abc')" class="bg-white rounded-3xl p-6 shadow-xl border-b-8 border-emerald-500 hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
@@ -209,10 +206,7 @@
             <div class="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl border-4 border-indigo-300 text-center flex flex-col items-center mb-6">
                 <div id="shape-name" class="text-4xl font-bold text-indigo-600 mb-8 tracking-wide">Bulat</div>
                 
-                <!-- Tapak Visual Rekaan Bentuk Guna Ikon / CSS Dinamik -->
-                <div id="shape-visual-zone" class="w-40 h-40 flex items-center justify-center mb-8 transform transition-transform">
-                    <!-- Ditjana melalui JS -->
-                </div>
+                <div id="shape-visual-zone" class="w-40 h-40 flex items-center justify-center mb-8 transform transition-transform"></div>
 
                 <button onclick="speakCurrentShape()" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold text-xl px-8 py-3 rounded-full shadow-lg border-b-4 border-indigo-700 flex items-center space-x-3">
                     <i class="fa-solid fa-volume-high text-2xl"></i> <span class="lbl-sound">Bunyi</span>
@@ -279,7 +273,6 @@
         window.rewardStar = function() {
             runTransaction(starsRef, (currentStars) => {
                 let total = (currentStars || 0) + 1;
-                // Setiap 5 bintang, buat pesta bunga api kecil (Level up)
                 if (total % 5 === 0) {
                     setTimeout(() => {
                         speakText(state.lang === 'ms' ? "Hebat! Adik dapat tingkat baru!" : "Amazing! You reached a new level!");
@@ -335,7 +328,7 @@
             }
         };
 
-        // KANDUNGAN PANDUAN LENGKAP A-Z
+        // KANDUNGAN A-Z LENGKAP
         const abcData = {
             ms: [
                 { char: 'A', word: 'Ayam', icon: 'fa-kiwi-bird' }, { char: 'B', word: 'Bola', icon: 'fa-baseball-ball' },
@@ -369,27 +362,27 @@
             ]
         };
 
-        // KANDUNGAN MODUL KEDUA: KATA HAIWAN & SIMULASI SUARA
+        // KANDUNGAN MODUL HAIWAN
         const animalData = {
             ms: [
-                { name: 'Kucing', icon: 'fa-cat', soundText: 'Meow! Meow!', audioDesc: 'bunyi meow kucing' },
-                { name: 'Anjing', icon: 'fa-dog', soundText: 'Woof! Woof!', audioDesc: 'bunyi salakan anjing' },
-                { name: 'Burung', icon: 'fa-dove', soundText: 'Chirp! Tweet!', audioDesc: 'bunyi kicauan burung' },
-                { name: 'Katak', icon: 'fa-frog', soundText: 'Ribbit! Croak!', audioDesc: 'bunyi katak' },
-                { name: 'Kuda', icon: 'fa-horse', soundText: 'Neighhh!', audioDesc: 'bunyi ringkikan kuda' },
-                { name: 'Lembu', icon: 'fa-cow', soundText: 'Mooouu!', audioDesc: 'bunyi lembu' }
+                { name: 'Kucing', icon: 'fa-cat', soundText: 'Meow! Meow!' },
+                { name: 'Anjing', icon: 'fa-dog', soundText: 'Woof! Woof!' },
+                { name: 'Burung', icon: 'fa-dove', soundText: 'Chirp! Tweet!' },
+                { name: 'Katak', icon: 'fa-frog', soundText: 'Ribbit! Ribbit!' },
+                { name: 'Kuda', icon: 'fa-horse', soundText: 'Neighhh!' },
+                { name: 'Lembu', icon: 'fa-cow', soundText: 'Mooouu!' }
             ],
             en: [
-                { name: 'Cat', icon: 'fa-cat', soundText: 'Meow! Meow!', audioDesc: 'cat meowing' },
-                { name: 'Dog', icon: 'fa-dog', soundText: 'Woof! Woof!', audioDesc: 'dog barking' },
-                { name: 'Bird', icon: 'fa-dove', soundText: 'Chirp! Tweet!', audioDesc: 'bird chirping' },
-                { name: 'Frog', icon: 'fa-frog', soundText: 'Ribbit! Croak!', audioDesc: 'frog croaking' },
-                { name: 'Horse', icon: 'fa-horse', soundText: 'Neighhh!', audioDesc: 'horse neighing' },
-                { name: 'Cow', icon: 'fa-cow', soundText: 'Mooouu!', audioDesc: 'cow mooing' }
+                { name: 'Cat', icon: 'fa-cat', soundText: 'Meow! Meow!' },
+                { name: 'Dog', icon: 'fa-dog', soundText: 'Woof! Woof!' },
+                { name: 'Bird', icon: 'fa-dove', soundText: 'Chirp! Tweet!' },
+                { name: 'Frog', icon: 'fa-frog', soundText: 'Ribbit! Ribbit!' },
+                { name: 'Horse', icon: 'fa-horse', soundText: 'Neighhh!' },
+                { name: 'Cow', icon: 'fa-cow', soundText: 'Mooouu!' }
             ]
         };
 
-        // KANDUNGAN MODUL KETIGA: BENTUK ASAS
+        // KANDUNGAN MODUL BENTUK
         const shapeData = {
             ms: [
                 { name: 'Bulat', html: '<div class="w-32 h-32 bg-indigo-500 rounded-full shadow-lg"></div>' },
@@ -418,9 +411,9 @@
             ]
         };
 
-        const numberIcons = ['fa-apple-whole', 'fa-carrot', 'fa-candy-cane', 'fa-fish', 'fa-ice-cream', 'fa-cookie', 'fa-strawberry'];
+        const numberIcons = ['fa-apple-whole', 'fa-carrot', 'fa-candy-cane', 'fa-fish', 'fa-ice-cream', 'fa-cookie', 'fa-strawberry', 'fa-lemon'];
 
-        // KAWALAN STATE KANDUNGAN GLOBAL
+        // STATE KANDUNGAN GLOBAL
         let state = {
             lang: 'ms',
             stars: 0,
@@ -482,7 +475,7 @@
             document.querySelectorAll('.btn-back').forEach(btn => btn.innerText = t.back);
         }
 
-        // ================= ENGINE STATE SETIAP KANDUNGAN MODUL =================
+        // ================= LOGIK MODUL =================
         function updateABCScreen() {
             const currentItem = abcData[state.lang][state.currentAbcIdx];
             document.getElementById('abc-char').innerText = currentItem.char;
@@ -494,11 +487,14 @@
         function prevABC() { state.currentAbcIdx = (state.currentAbcIdx - 1 + abcData[state.lang].length) % abcData[state.lang].length; updateABCScreen(); }
         function speakCurrentABC() { const item = abcData[state.lang][state.currentAbcIdx]; speakText(`${item.char}... ${item.word}`); }
 
+        // PERBAIKAN UTAMA: Paparan ikon nombor yang selamat bagi semua nilai 1 - 20
         function updateNumberScreen() {
             document.getElementById('num-display').innerText = state.currentNum;
             const zone = document.getElementById('num-objects-zone');
             zone.innerHTML = '';
-            const iconClass = numberIcons[state.currentNum % numberIcons.length];
+            
+            const iconIndex = (state.currentNum - 1) % numberIcons.length;
+            const iconClass = numberIcons[iconIndex];
             
             for(let i = 0; i < state.currentNum; i++) {
                 const item = document.createElement('div');
@@ -522,10 +518,7 @@
         function nextAnimal() { state.currentAnimalIdx = (state.currentAnimalIdx + 1) % animalData[state.lang].length; updateAnimalScreen(); }
         function prevAnimal() { state.currentAnimalIdx = (state.currentAnimalIdx - 1 + animalData[state.lang].length) % animalData[state.lang].length; updateAnimalScreen(); }
         function speakCurrentAnimal() { speakText(animalData[state.lang][state.currentAnimalIdx].name); }
-        function makeAnimalSound() {
-            const item = animalData[state.lang][state.currentAnimalIdx];
-            speakText(item.soundText); // Melukis deskripsi bunyi haiwan secara vokal
-        }
+        function makeAnimalSound() { speakText(animalData[state.lang][state.currentAnimalIdx].soundText); }
 
         function updateShapeScreen() {
             const item = shapeData[state.lang][state.currentShapeIdx];
@@ -579,8 +572,8 @@
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = state.lang === 'ms' ? 'ms-MY' : 'en-US';
-                utterance.rate = 0.82; // Tempo kelajuan mesra kanak-kanak tadika
-                utterance.pitch = 1.25; // Suara riang sedikit
+                utterance.rate = 0.82;
+                utterance.pitch = 1.25;
                 window.speechSynthesis.speak(utterance);
             }
         }
