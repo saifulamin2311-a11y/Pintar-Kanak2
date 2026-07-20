@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanak2 Pintar - Aplikasi Pembelajaran Awal</title>
+    <!-- Tailwind CSS untuk Reka Bentuk Responsif & Ceria -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Google Fonts - Fredoka (Font bulat & mesra kanak-kanak) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <!-- FontAwesome untuk Ikon Besar & Menarik -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti untuk Animasi Ganjaran -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-color: #FFFDE7; /* Warna kuning lembut ceria */
+        }
+        .pop-in {
+            animation: popIn 0.3s ease-out forwards;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased select-none">
+
+    <!-- HEADER / NAVIGASI UTAMA -->
+    <header class="bg-gradient-to-r from-pink-400 via-amber-400 to-sky-400 p-4 shadow-lg text-white">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <!-- Logo & Nama Aplikasi -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="showScreen('home')">
+                <div class="bg-white p-2 rounded-full shadow-md text-pink-500 text-2xl w-12 h-12 flex items-center justify-center border-2 border-pink-300 animate-bounce">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold tracking-wide drop-shadow-md">Kanak2 Pintar</h1>
+            </div>
+            
+            <!-- Kawalan Bahasa & Profil Ganjaran -->
+            <div class="flex items-center space-x-4">
+                <!-- Tukar Bahasa -->
+                <button onclick="toggleLanguage()" id="langBtn" class="bg-white/30 hover:bg-white/40 px-4 py-1.5 rounded-full font-medium border border-white text-sm transition-all shadow-sm">
+                    English 🇬🇧
+                </button>
+                <!-- Jumlah Bintang Terkumpul -->
+                <div class="bg-amber-500/80 px-4 py-1.5 rounded-full flex items-center space-x-2 border-2 border-amber-300 shadow">
+                    <i class="fa-solid fa-star text-yellow-300 animate-pulse text-lg"></i>
+                    <span id="starCount" class="font-bold text-lg">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- KANDUNGAN UTAMA (DIPACU SKRIP) -->
+    <main class="flex-grow max-w-4xl w-full mx-auto p-4 md:p-6 flex flex-col justify-center items-center">
+        
+        <!-- ================= SKRIN UTAMA (HOME) ================= -->
+        <div id="screen-home" class="w-full text-center pop-in">
+            <h2 id="txt-welcome" class="text-3xl md:text-4xl font-extrabold text-purple-600 mb-2 drop-shadow-sm">Jom Belajar Sambil Bermain!</h2>
+            <p id="txt-subtitle" class="text-gray-600 text-lg md:text-xl mb-8">Pilih menu kegemaran adik di bawah:</p>
+            
+            <!-- Grid Menu Pilihan Modul -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full px-4">
+                <!-- Menu ABC -->
+                <div onclick="showScreen('abc')" class="bg-white rounded-3xl p-6 shadow-xl border-b-8 border-emerald-500 hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
+                    <div class="w-24 h-24 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center text-5xl mb-4 border-4 border-emerald-300">
+                        <i class="fa-solid fa-font"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-emerald-600 mb-1">Huruf ABC</h3>
+                    <p id="menu-abc-desc" class="text-gray-500 text-sm">Belajar sebutan & kenal objek</p>
+                </div>
+
+                <!-- Menu 123 -->
+                <div onclick="showScreen('numbers')" class="bg-white rounded-3xl p-6 shadow-xl border-b-8 border-sky-500 hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
+                    <div class="w-24 h-24 bg-sky-100 text-sky-500 rounded-full flex items-center justify-center text-5xl mb-4 border-4 border-sky-300">
+                        <i class="fa-solid fa-arrow-1-9"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-sky-600 mb-1">Nombor 123</h3>
+                    <p id="menu-123-desc" class="text-gray-500 text-sm">Belajar mengira benda</p>
+                </div>
+
+                <!-- Menu Warna -->
+                <div onclick="showScreen('colors')" class="bg-white rounded-3xl p-6 shadow-xl border-b-8 border-pink-500 hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
+                    <div class="w-24 h-24 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center text-5xl mb-4 border-4 border-pink-300">
+                        <i class="fa-solid fa-palette"></i>
+                    </div>
+                    <h3 id="menu-color-title" class="text-2xl font-bold text-pink-600 mb-1">Padan Warna</h3>
+                    <p id="menu-color-desc" class="text-gray-500 text-sm">Permainan teka warna ceria</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= SKRIN HURUF ABC ================= -->
+        <div id="screen-abc" class="w-full hidden pop-in flex flex-col items-center">
+            <div class="w-full flex justify-between items-center mb-6">
+                <button onclick="showScreen('home')" class="bg-purple-500 hover:bg-purple-600 text-white font-bold px-5 py-2.5 rounded-full shadow border-b-4 border-purple-700 active:border-b-0 flex items-center space-x-2">
+                    <i class="fa-solid fa-house"></i> <span class="btn-back">Kembali</span>
+                </button>
+                <h2 class="text-3xl font-bold text-emerald-600">Belajar ABC</h2>
+            </div>
+            
+            <!-- Kad Paparan Interaktif -->
+            <div class="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl border-4 border-emerald-300 text-center flex flex-col items-center mb-6">
+                <div id="abc-char" class="text-8xl font-black text-emerald-500 mb-2 transform transition-all duration-300">A</div>
+                <div id="abc-word" class="text-3xl font-bold text-gray-700 mb-4 tracking-wide">Ayam</div>
+                <!-- Gambar Ringkas Menggunakan Ikon -->
+                <div id="abc-icon" class="text-7xl text-amber-500 bg-amber-50 p-6 rounded-full w-32 h-32 flex items-center justify-center shadow-inner mb-6">
+                    <i class="fa-solid fa-egg"></i>
+                </div>
+                <!-- Butang Sebutan -->
+                <button onclick="speakCurrentABC()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xl px-8 py-3 rounded-full shadow-lg border-b-4 border-emerald-700 active:border-b-0 flex items-center space-x-3">
+                    <i class="fa-solid fa-volume-high text-2xl"></i> <span id="lbl-sound">Bunyi</span>
+                </button>
+            </div>
+
+            <!-- Navigasi Slaid Huruf -->
+            <div class="flex space-x-6">
+                <button onclick="prevABC()" class="bg-gray-400 hover:bg-gray-500 text-white font-bold w-16 h-16 rounded-full text-2xl shadow-md border-b-4 border-gray-600 flex items-center justify-center">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button onclick="nextABC()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold w-16 h-16 rounded-full text-2xl shadow-md border-b-4 border-emerald-700 flex items-center justify-center">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= SKRIN NOMBOR 123 ================= -->
+        <div id="screen-numbers" class="w-full hidden pop-in flex flex-col items-center">
+            <div class="w-full flex justify-between items-center mb-6">
+                <button onclick="showScreen('home')" class="bg-purple-500 hover:bg-purple-600 text-white font-bold px-5 py-2.5 rounded-full shadow border-b-4 border-purple-700 flex items-center space-x-2">
+                    <i class="fa-solid fa-house"></i> <span class="btn-back">Kembali</span>
+                </button>
+                <h2 class="text-3xl font-bold text-sky-600">Belajar Mengira</h2>
+            </div>
+
+            <!-- Kad Paparan Nombor -->
+            <div class="bg-white w-full max-w-lg rounded-3xl p-8 shadow-2xl border-4 border-sky-300 text-center flex flex-col items-center mb-6">
+                <div id="num-display" class="text-8xl font-black text-sky-500 mb-4">1</div>
+                
+                <!-- Kawasan Visual Benda Dikira -->
+                <div id="num-objects-zone" class="flex flex-wrap justify-center items-center gap-4 min-h-[120px] bg-sky-50 p-6 rounded-2xl w-full mb-6 border border-dashed border-sky-200">
+                    <!-- Dinamik Ikon Dimasukkan Di Sini -->
+                </div>
+
+                <button onclick="speakCurrentNumber()" class="bg-sky-500 hover:bg-sky-600 text-white font-bold text-xl px-8 py-3 rounded-full shadow-lg border-b-4 border-sky-700 flex items-center space-x-3">
+                    <i class="fa-solid fa-volume-high text-2xl"></i> <span id="lbl-sound-num">Bunyi</span>
+                </button>
+            </div>
+
+            <!-- Navigasi Slaid Nombor -->
+            <div class="flex space-x-6">
+                <button onclick="prevNum()" class="bg-gray-400 hover:bg-gray-500 text-white font-bold w-16 h-16 rounded-full text-2xl shadow-md border-b-4 border-gray-600 flex items-center justify-center">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button onclick="nextNum()" class="bg-sky-500 hover:bg-sky-600 text-white font-bold w-16 h-16 rounded-full text-2xl shadow-md border-b-4 border-sky-700 flex items-center justify-center">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= SKRIN PERMAINAN WARNA ================= -->
+        <div id="screen-colors" class="w-full hidden pop-in flex flex-col items-center">
+            <div class="w-full flex justify-between items-center mb-6">
+                <button onclick="showScreen('home')" class="bg-purple-500 hover:bg-purple-600 text-white font-bold px-5 py-2.5 rounded-full shadow border-b-4 border-purple-700 flex items-center space-x-2">
+                    <i class="fa-solid fa-house"></i> <span class="btn-back">Kembali</span>
+                </button>
+                <h2 id="game-title" class="text-3xl font-bold text-pink-600">Tekan Warna</h2>
+            </div>
+
+            <!-- Papan Kuiz Permainan -->
+            <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl border-4 border-pink-300 text-center flex flex-col items-center">
+                <p id="game-instruction" class="text-2xl font-bold text-gray-700 mb-6">Mana satu warna: <span id="target-color-name" class="underline text-purple-600">Merah</span>?</p>
+                
+                <!-- Grid Pilihan Warna Bebola -->
+                <div id="color-options-grid" class="grid grid-cols-2 gap-6 w-full mb-4">
+                    <!-- Dinamik Butang Pilihan Warna Ditjana Di Sini -->
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER KESELAMATAN -->
+    <footer class="bg-amber-100 py-3 text-center text-xs text-amber-800 border-t border-amber-200">
+        <p><i class="fa-solid fa-shield-halved text-emerald-600"></i> Ruang Pembelajaran Selamat & Bebas Iklan untuk Anak Pintar Malaysia</p>
+    </footer>
+
+    <!-- ================= SISTEM & LOGIK APLIKASI ================= -->
+    <!-- Pakej Firebase Modular Modular SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, set, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // Konfigurasi Firebase Anda
+        const firebaseConfig = {
+            apiKey: "AIzaSyDUZuYzytRJGeRLzElfzg1xV3KUYDapIbY",
+            authDomain: "origin-e984a.firebaseapp.com",
+            databaseURL: "https://origin-e984a-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "origin-e984a",
+            storageBucket: "origin-e984a.firebasestorage.app",
+            messagingSenderId: "952476759809",
+            appId: "1:952476759809:web:862a890ea142a8cb2e0d00"
+        };
+
+        // Inisialisasi Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        
+        // Hasilkan ID pengguna unik rawak simulasi tablet/telefon peranti kanak-kanak
+        let userId = localStorage.getItem('kk_pintar_userid');
+        if (!userId) {
+            userId = 'kid_' + Math.random().toString(36).substring(2, 9);
+            localStorage.setItem('kk_pintar_userid', userId);
+        }
+
+        const starsRef = ref(db, 'users/' + userId + '/stars');
+
+        // Pautan Pengkalan Data: Ambil nilai real-time bintang
+        onValue(starsRef, (snapshot) => {
+            const data = snapshot.val();
+            state.stars = data || 0;
+            document.getElementById('starCount').innerText = state.stars;
+        });
+
+        // Fungsi Tambah Bintang & Hantar ke Firebase
+        window.rewardStar = function() {
+            runTransaction(starsRef, (currentStars) => {
+                return (currentStars || 0) + 1;
+            });
+            
+            // Letupan Confetti ganjaran visual
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        };
+    </script>
+
+    <script>
+        // ================= KANDUNGAN DATA DWIBAHASA =================
+        const translations = {
+            ms: {
+                welcome: "Jom Belajar Sambil Bermain!",
+                subtitle: "Pilih menu kegemaran adik di bawah:",
+                abcDesc: "Belajar sebutan & kenal objek",
+                numDesc: "Belajar mengira benda",
+                colorTitle: "Padan Warna",
+                colorDesc: "Permainan teka warna ceria",
+                back: "Kembali",
+                sound: "Bunyi",
+                gameInstruct: "Mana satu warna: ",
+                langBtn: "English 🇬🇧"
+            },
+            en: {
+                welcome: "Let's Learn & Play Together!",
+                subtitle: "Choose your favorite game below:",
+                abcDesc: "Learn letters & object names",
+                numDesc: "Learn how to count objects",
+                colorTitle: "Color Match",
+                colorDesc: "Fun color guessing game",
+                back: "Back",
+                sound: "Voice",
+                gameInstruct: "Which one is: ",
+                langBtn: "Melayu 🇲🇾"
+            }
+        };
+
+        const abcData = {
+            ms: [
+                { char: 'A', word: 'Ayam', icon: 'fa-kiwi-bird' },
+                { char: 'B', word: 'Bola', icon: 'fa-baseball-ball' },
+                { char: 'C', word: 'Cawan', icon: 'fa-mug-hot' },
+                { char: 'D', word: 'Durian', icon: 'fa-apple-whole' },
+                { char: 'E', word: 'Epal', icon: 'fa-lemon' }
+            ],
+            en: [
+                { char: 'A', word: 'Apple', icon: 'fa-apple-whole' },
+                { char: 'B', word: 'Ball', icon: 'fa-basketball' },
+                { char: 'C', word: 'Cat', icon: 'fa-cat' },
+                { char: 'D', word: 'Dog', icon: 'fa-dog' },
+                { char: 'E', word: 'Egg', icon: 'fa-egg' }
+            ]
+        };
+
+        const colorData = {
+            ms: [
+                { name: 'Merah', hex: '#EF4444' },
+                { name: 'Biru', hex: '#3B82F6' },
+                { name: 'Hijau', hex: '#10B981' },
+                { name: 'Kuning', hex: '#F59E0B' },
+                { name: 'Merah Jambu', hex: '#EC4899' },
+                { name: 'Ungu', hex: '#8B5CF6' }
+            ],
+            en: [
+                { name: 'Red', hex: '#EF4444' },
+                { name: 'Blue', hex: '#3B82F6' },
+                { name: 'Green', hex: '#10B981' },
+                { name: 'Yellow', hex: '#F59E0B' },
+                { name: 'Pink', hex: '#EC4899' },
+                { name: 'Purple', hex: '#8B5CF6' }
+            ]
+        };
+
+        const numberIcons = ['fa-apple-whole', 'fa-carrot', 'fa-candy-cane', 'fa-fish', 'fa-ice-cream'];
+
+        // APPS GLOBAL STATE
+        let state = {
+            lang: 'ms',
+            stars: 0,
+            currentAbcIdx: 0,
+            currentNum: 1,
+            targetColor: null
+        };
+
+        // ================= KAWALAN SKRIN & NAVIGATION =================
+        function showScreen(screenId) {
+            // Sembunyikan semua skrin
+            document.getElementById('screen-home').classList.add('hidden');
+            document.getElementById('screen-abc').classList.add('hidden');
+            document.getElementById('screen-numbers').classList.add('hidden');
+            document.getElementById('screen-colors').classList.add('hidden');
+
+            // Paparkan skrin yang dimintak
+            document.getElementById(`screen-${screenId}`).classList.remove('hidden');
+
+            // Inisialisasi data berdasarkan skrin terpilih
+            if (screenId === 'abc') updateABCScreen();
+            if (screenId === 'numbers') updateNumberScreen();
+            if (screenId === 'colors') generateColorGame();
+        }
+
+        function toggleLanguage() {
+            state.lang = state.lang === 'ms' ? 'en' : 'ms';
+            localStorage.setItem('kk_pintar_lang', state.lang);
+            applyLanguage();
+            
+            // Segarkan data skrin aktif semasa tukar bahasa
+            if (!document.getElementById('screen-abc').classList.contains('hidden')) updateABCScreen();
+            if (!document.getElementById('screen-numbers').classList.contains('hidden')) updateNumberScreen();
+            if (!document.getElementById('screen-colors').classList.contains('hidden')) generateColorGame();
+        }
+
+        function applyLanguage() {
+            const t = translations[state.lang];
+            document.getElementById('langBtn').innerText = t.langBtn;
+            document.getElementById('txt-welcome').innerText = t.welcome;
+            document.getElementById('txt-subtitle').innerText = t.subtitle;
+            document.getElementById('menu-abc-desc').innerText = t.abcDesc;
+            document.getElementById('menu-123-desc').innerText = t.numDesc;
+            document.getElementById('menu-color-title').innerText = t.colorTitle;
+            document.getElementById('menu-color-desc').innerText = t.colorDesc;
+            document.getElementById('lbl-sound').innerText = t.sound;
+            document.getElementById('lbl-sound-num').innerText = t.sound;
+            
+            document.querySelectorAll('.btn-back').forEach(btn => btn.innerText = t.back);
+        }
+
+        // ================= SISTEM MODUL HURUF ABC =================
+        function updateABCScreen() {
+            const currentItem = abcData[state.lang][state.currentAbcIdx];
+            const charEl = document.getElementById('abc-char');
+            
+            charEl.innerText = currentItem.char;
+            document.getElementById('abc-word').innerText = currentItem.word;
+            document.getElementById('abc-icon').innerHTML = `<i class="fa-solid ${currentItem.icon}"></i>`;
+            
+            // Main bunyi secara automatik semasa skrin ditukar
+            speakCurrentABC();
+        }
+
+        function nextABC() {
+            state.currentAbcIdx = (state.currentAbcIdx + 1) % abcData[state.lang].length;
+            updateABCScreen();
+        }
+
+        function prevABC() {
+            state.currentAbcIdx = (state.currentAbcIdx - 1 + abcData[state.lang].length) % abcData[state.lang].length;
+            updateABCScreen();
+        }
+
+        function speakCurrentABC() {
+            const currentItem = abcData[state.lang][state.currentAbcIdx];
+            speakText(`${currentItem.char}... ${currentItem.word}`);
+        }
+
+        // ================= SISTEM MODUL NOMBOR 123 =================
+        function updateNumberScreen() {
+            document.getElementById('num-display').innerText = state.currentNum;
+            const zone = document.getElementById('num-objects-zone');
+            zone.innerHTML = '';
+            
+            // Pilih satu ikon rawak berulang mengikut nombor
+            const iconClass = numberIcons[state.currentNum % numberIcons.length];
+            
+            for(let i = 0; i < state.currentNum; i++) {
+                const iconContainer = document.createElement('div');
+                iconContainer.className = "text-4xl text-sky-500 animate-bounce transition-all";
+                iconContainer.style.animationDelay = `${i * 0.1}s`;
+                iconContainer.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
+                zone.appendChild(iconContainer);
+            }
+            speakCurrentNumber();
+        }
+
+        function nextNum() {
+            if (state.currentNum < 10) {
+                state.currentNum++;
+                updateNumberScreen();
+            } else {
+                state.currentNum = 1; // Ulang balik dari 1
+                updateNumberScreen();
+            }
+        }
+
+        function prevNum() {
+            if (state.currentNum > 1) {
+                state.currentNum--;
+                updateNumberScreen();
+            }
+        }
+
+        function speakCurrentNumber() {
+            speakText(state.currentNum.toString());
+        }
+
+        // ================= SISTEM PERMAINAN WARNA =================
+        function generateColorGame() {
+            const colorsList = colorData[state.lang];
+            // Pilih 1 warna sasaran secara rawak
+            const target = colorsList[Math.floor(Math.random() * colorsList.length)];
+            state.targetColor = target;
+
+            document.getElementById('game-instruction').innerHTML = `${translations[state.lang].gameInstruct} <span class="underline font-black text-pink-600">${target.name}</span>?`;
+            
+            // Sediakan pilihan jawapan termasuk yang betul (Total 4 Pilihan)
+            let choices = [target];
+            while (choices.length < 4) {
+                let randomColor = colorsList[Math.floor(Math.random() * colorsList.length)];
+                if (!choices.some(c => c.hex === randomColor.hex)) {
+                    choices.push(randomColor);
+                }
+            }
+            // Kacau susunan butang jawapan
+            choices.sort(() => Math.random() - 0.5);
+
+            const grid = document.getElementById('color-options-grid');
+            grid.innerHTML = '';
+
+            choices.forEach(color => {
+                const btn = document.createElement('button');
+                btn.className = "h-28 w-full rounded-2xl shadow-md border-4 border-white active:scale-95 transition-transform cursor-pointer transform hover:scale-102";
+                btn.style.backgroundColor = color.hex;
+                btn.onclick = () => checkColorAnswer(color.hex, btn);
+                grid.appendChild(btn);
+            });
+        }
+
+        function checkColorAnswer(selectedHex, buttonEl) {
+            if (selectedHex === state.targetColor.hex) {
+                // Betul! Panggil fungsi ganjaran bintang global
+                if (window.rewardStar) {
+                    window.rewardStar();
+                }
+                speakText(state.lang === 'ms' ? "Betul! Bijak!" : "Correct! Good job!");
+                
+                // Animasi butang hijau sukses sebelum muat kuiz baru
+                buttonEl.classList.add('border-emerald-500', 'animate-ping');
+                setTimeout(() => {
+                    generateColorGame();
+                }, 800);
+            } else {
+                // Salah
+                speakText(state.lang === 'ms' ? "Cuba lagi" : "Try again");
+                buttonEl.classList.add('opacity-30', 'pointer-events-none');
+            }
+        }
+
+        // ================= ENGINE SEBUTAN SUARA (TTS) =================
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                // Hentikan suara sedia ada untuk elakkan bertindih
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                // Set padanan kod bahasa
+                utterance.lang = state.lang === 'ms' ? 'ms-MY' : 'en-US';
+                utterance.rate = 0.85; // Kelajuan perlahan sedikit supaya mudah diikuti oleh kanak-kanak
+                utterance.pitch = 1.2; // Pitch ditinggikan sedikit untuk elemen mesra/comel
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // SET ALIRAN PERMULAAN APLIKASI
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('kk_pintar_lang');
+            if (savedLang) state.lang = savedLang;
+            applyLanguage();
+            showScreen('home');
+        });
+    </script>
+</body>
+</html>
