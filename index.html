@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kanak2 Pintar - Aplikasi Pembelajaran Awal</title>
+    <title>Kanak2 Pintar - Aplikasi Pembelajaran Awal V2</title>
     <!-- Tailwind CSS untuk Reka Bentuk Responsif & Ceria -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Google Fonts - Fredoka (Font bulat & mesra kanak-kanak) -->
@@ -21,18 +21,21 @@
             background-color: #FFFDE7; /* Warna kuning lembut ceria */
         }
         .pop-in {
-            animation: popIn 0.3s ease-out forwards;
+            animation: popIn 0.35s ease-out forwards;
         }
         @keyframes popIn {
             0% { transform: scale(0.9); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
+        }
+        .shape-preview {
+            transition: all 0.3s ease;
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased select-none">
 
     <!-- HEADER / NAVIGASI UTAMA -->
-    <header class="bg-gradient-to-r from-pink-400 via-amber-400 to-sky-400 p-4 shadow-lg text-white">
+    <header class="bg-gradient-to-r from-pink-400 via-amber-400 to-sky-400 p-4 shadow-lg text-white sticky top-0 z-50">
         <div class="max-w-4xl mx-auto flex justify-between items-center">
             <!-- Logo & Nama Aplikasi -->
             <div class="flex items-center space-x-3 cursor-pointer" onclick="showScreen('home')">
@@ -65,15 +68,15 @@
             <h2 id="txt-welcome" class="text-3xl md:text-4xl font-extrabold text-purple-600 mb-2 drop-shadow-sm">Jom Belajar Sambil Bermain!</h2>
             <p id="txt-subtitle" class="text-gray-600 text-lg md:text-xl mb-8">Pilih menu kegemaran adik di bawah:</p>
             
-            <!-- Grid Menu Pilihan Modul -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full px-4">
+            <!-- Grid Menu Pilihan Modul Terkini (5 Pilihan Utama) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full px-4 justify-center">
                 <!-- Menu ABC -->
                 <div onclick="showScreen('abc')" class="bg-white rounded-3xl p-6 shadow-xl border-b-8 border-emerald-500 hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
                     <div class="w-24 h-24 bg-emerald-100 text-emerald-500 rounded-full flex items-center justify-center text-5xl mb-4 border-4 border-emerald-300">
                         <i class="fa-solid fa-font"></i>
                     </div>
                     <h3 class="text-2xl font-bold text-emerald-600 mb-1">Huruf ABC</h3>
-                    <p id="menu-abc-desc" class="text-gray-500 text-sm">Belajar sebutan & kenal objek</p>
+                    <p id="menu-abc-desc" class="text-gray-500 text-sm text-center">Belajar sebutan A hingga Z</p>
                 </div>
 
                 <!-- Menu 123 -->
@@ -82,16 +85,34 @@
                         <i class="fa-solid fa-arrow-1-9"></i>
                     </div>
                     <h3 class="text-2xl font-bold text-sky-600 mb-1">Nombor 123</h3>
-                    <p id="menu-123-desc" class="text-gray-500 text-sm">Belajar mengira benda</p>
+                    <p id="menu-123-desc" class="text-gray-500 text-sm text-center">Belajar mengira 1 hingga 20</p>
                 </div>
 
-                <!-- Menu Warna -->
-                <div onclick="showScreen('colors')" class="bg-white rounded-3xl p-6 shadow-xl border-b-8 border-pink-500 hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
+                <!-- Menu Haiwan -->
+                <div onclick="showScreen('animals')" class="bg-white rounded-3xl p-6 shadow-xl border-b-8 border-amber-500 hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
+                    <div class="w-24 h-24 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-5xl mb-4 border-4 border-amber-300">
+                        <i class="fa-solid fa-paw"></i>
+                    </div>
+                    <h3 id="menu-animal-title" class="text-2xl font-bold text-amber-600 mb-1">Kenal Haiwan</h3>
+                    <p id="menu-animal-desc" class="text-gray-500 text-sm text-center">Bunyi haiwan yang comel</p>
+                </div>
+
+                <!-- Menu Bentuk -->
+                <div onclick="showScreen('shapes')" class="bg-white rounded-3xl p-6 shadow-xl border-b-8 border-indigo-500 hover:scale-105 transition-transform cursor-pointer flex flex-col items-center">
+                    <div class="w-24 h-24 bg-indigo-100 text-indigo-500 rounded-full flex items-center justify-center text-5xl mb-4 border-4 border-indigo-300">
+                        <i class="fa-solid fa-shapes"></i>
+                    </div>
+                    <h3 id="menu-shape-title" class="text-2xl font-bold text-indigo-600 mb-1">Bentuk Asas</h3>
+                    <p id="menu-shape-desc" class="text-gray-500 text-sm text-center">Bulat, Segi Empat & Bintang</p>
+                </div>
+
+                <!-- Menu Padan Warna -->
+                <div onclick="showScreen('colors')" class="bg-white rounded-3xl p-6 shadow-xl border-b-8 border-pink-500 hover:scale-105 transition-transform cursor-pointer flex flex-col items-center sm:col-span-2 lg:col-span-1 mx-auto w-full max-w-sm sm:max-w-none">
                     <div class="w-24 h-24 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center text-5xl mb-4 border-4 border-pink-300">
                         <i class="fa-solid fa-palette"></i>
                     </div>
                     <h3 id="menu-color-title" class="text-2xl font-bold text-pink-600 mb-1">Padan Warna</h3>
-                    <p id="menu-color-desc" class="text-gray-500 text-sm">Permainan teka warna ceria</p>
+                    <p id="menu-color-desc" class="text-gray-500 text-sm text-center">Permainan teka warna ceria</p>
                 </div>
             </div>
         </div>
@@ -105,28 +126,20 @@
                 <h2 class="text-3xl font-bold text-emerald-600">Belajar ABC</h2>
             </div>
             
-            <!-- Kad Paparan Interaktif -->
             <div class="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl border-4 border-emerald-300 text-center flex flex-col items-center mb-6">
-                <div id="abc-char" class="text-8xl font-black text-emerald-500 mb-2 transform transition-all duration-300">A</div>
+                <div id="abc-char" class="text-9xl font-black text-emerald-500 mb-2 transform transition-all">A</div>
                 <div id="abc-word" class="text-3xl font-bold text-gray-700 mb-4 tracking-wide">Ayam</div>
-                <!-- Gambar Ringkas Menggunakan Ikon -->
                 <div id="abc-icon" class="text-7xl text-amber-500 bg-amber-50 p-6 rounded-full w-32 h-32 flex items-center justify-center shadow-inner mb-6">
                     <i class="fa-solid fa-egg"></i>
                 </div>
-                <!-- Butang Sebutan -->
                 <button onclick="speakCurrentABC()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xl px-8 py-3 rounded-full shadow-lg border-b-4 border-emerald-700 active:border-b-0 flex items-center space-x-3">
-                    <i class="fa-solid fa-volume-high text-2xl"></i> <span id="lbl-sound">Bunyi</span>
+                    <i class="fa-solid fa-volume-high text-2xl"></i> <span class="lbl-sound">Bunyi</span>
                 </button>
             </div>
 
-            <!-- Navigasi Slaid Huruf -->
             <div class="flex space-x-6">
-                <button onclick="prevABC()" class="bg-gray-400 hover:bg-gray-500 text-white font-bold w-16 h-16 rounded-full text-2xl shadow-md border-b-4 border-gray-600 flex items-center justify-center">
-                    <i class="fa-solid fa-chevron-left"></i>
-                </button>
-                <button onclick="nextABC()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold w-16 h-16 rounded-full text-2xl shadow-md border-b-4 border-emerald-700 flex items-center justify-center">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </button>
+                <button onclick="prevABC()" class="bg-gray-400 hover:bg-gray-500 text-white font-bold w-16 h-16 rounded-full text-2xl shadow-md border-b-4 border-gray-600 flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
+                <button onclick="nextABC()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold w-16 h-16 rounded-full text-2xl shadow-md border-b-4 border-emerald-700 flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </div>
 
@@ -139,28 +152,76 @@
                 <h2 class="text-3xl font-bold text-sky-600">Belajar Mengira</h2>
             </div>
 
-            <!-- Kad Paparan Nombor -->
-            <div class="bg-white w-full max-w-lg rounded-3xl p-8 shadow-2xl border-4 border-sky-300 text-center flex flex-col items-center mb-6">
+            <div class="bg-white w-full max-w-2xl rounded-3xl p-8 shadow-2xl border-4 border-sky-300 text-center flex flex-col items-center mb-6">
                 <div id="num-display" class="text-8xl font-black text-sky-500 mb-4">1</div>
-                
-                <!-- Kawasan Visual Benda Dikira -->
-                <div id="num-objects-zone" class="flex flex-wrap justify-center items-center gap-4 min-h-[120px] bg-sky-50 p-6 rounded-2xl w-full mb-6 border border-dashed border-sky-200">
-                    <!-- Dinamik Ikon Dimasukkan Di Sini -->
-                </div>
+                <div id="num-objects-zone" class="flex flex-wrap justify-center items-center gap-4 min-h-[140px] max-h-[300px] overflow-y-auto bg-sky-50 p-6 rounded-2xl w-full mb-6 border border-dashed border-sky-200"></div>
 
                 <button onclick="speakCurrentNumber()" class="bg-sky-500 hover:bg-sky-600 text-white font-bold text-xl px-8 py-3 rounded-full shadow-lg border-b-4 border-sky-700 flex items-center space-x-3">
-                    <i class="fa-solid fa-volume-high text-2xl"></i> <span id="lbl-sound-num">Bunyi</span>
+                    <i class="fa-solid fa-volume-high text-2xl"></i> <span class="lbl-sound">Bunyi</span>
                 </button>
             </div>
 
-            <!-- Navigasi Slaid Nombor -->
             <div class="flex space-x-6">
-                <button onclick="prevNum()" class="bg-gray-400 hover:bg-gray-500 text-white font-bold w-16 h-16 rounded-full text-2xl shadow-md border-b-4 border-gray-600 flex items-center justify-center">
-                    <i class="fa-solid fa-chevron-left"></i>
+                <button onclick="prevNum()" class="bg-gray-400 hover:bg-gray-500 text-white font-bold w-16 h-16 rounded-full text-2xl shadow-md border-b-4 border-gray-600 flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
+                <button onclick="nextNum()" class="bg-sky-500 hover:bg-sky-600 text-white font-bold w-16 h-16 rounded-full text-2xl shadow-md border-b-4 border-sky-700 flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <!-- ================= SKRIN KENAL HAIWAN ================= -->
+        <div id="screen-animals" class="w-full hidden pop-in flex flex-col items-center">
+            <div class="w-full flex justify-between items-center mb-6">
+                <button onclick="showScreen('home')" class="bg-purple-500 hover:bg-purple-600 text-white font-bold px-5 py-2.5 rounded-full shadow border-b-4 border-purple-700 flex items-center space-x-2">
+                    <i class="fa-solid fa-house"></i> <span class="btn-back">Kembali</span>
                 </button>
-                <button onclick="nextNum()" class="bg-sky-500 hover:bg-sky-600 text-white font-bold w-16 h-16 rounded-full text-2xl shadow-md border-b-4 border-sky-700 flex items-center justify-center">
-                    <i class="fa-solid fa-chevron-right"></i>
+                <h2 id="lbl-animal-header" class="text-3xl font-bold text-amber-600">Dunia Haiwan</h2>
+            </div>
+
+            <div class="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl border-4 border-amber-300 text-center flex flex-col items-center mb-6">
+                <div id="animal-name" class="text-4xl font-bold text-amber-600 mb-6 tracking-wide">Kucing</div>
+                <div id="animal-icon" class="text-8xl text-orange-400 bg-orange-50 p-8 rounded-full w-40 h-40 flex items-center justify-center shadow-inner mb-6">
+                    <i class="fa-solid fa-cat"></i>
+                </div>
+                <div class="flex space-x-4">
+                    <button onclick="speakCurrentAnimal()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold text-lg px-6 py-3 rounded-full shadow border-b-4 border-amber-700 flex items-center space-x-2">
+                        <i class="fa-solid fa-volume-high"></i> <span class="lbl-sound">Nama</span>
+                    </button>
+                    <button onclick="makeAnimalSound()" class="bg-orange-500 hover:bg-orange-600 text-white font-bold text-lg px-6 py-3 rounded-full shadow border-b-4 border-orange-700 flex items-center space-x-2">
+                        <i class="fa-solid fa-music"></i> <span id="lbl-sound-effect">Bunyi</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex space-x-6">
+                <button onclick="prevAnimal()" class="bg-gray-400 hover:bg-gray-500 text-white font-bold w-16 h-16 rounded-full text-2xl shadow-md border-b-4 border-gray-600 flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
+                <button onclick="nextAnimal()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold w-16 h-16 rounded-full text-2xl shadow-md border-b-4 border-amber-700 flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <!-- ================= SKRIN BENTUK ASAS ================= -->
+        <div id="screen-shapes" class="w-full hidden pop-in flex flex-col items-center">
+            <div class="w-full flex justify-between items-center mb-6">
+                <button onclick="showScreen('home')" class="bg-purple-500 hover:bg-purple-600 text-white font-bold px-5 py-2.5 rounded-full shadow border-b-4 border-purple-700 flex items-center space-x-2">
+                    <i class="fa-solid fa-house"></i> <span class="btn-back">Kembali</span>
                 </button>
+                <h2 id="lbl-shape-header" class="text-3xl font-bold text-indigo-600">Kenal Bentuk</h2>
+            </div>
+
+            <div class="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl border-4 border-indigo-300 text-center flex flex-col items-center mb-6">
+                <div id="shape-name" class="text-4xl font-bold text-indigo-600 mb-8 tracking-wide">Bulat</div>
+                
+                <!-- Tapak Visual Rekaan Bentuk Guna Ikon / CSS Dinamik -->
+                <div id="shape-visual-zone" class="w-40 h-40 flex items-center justify-center mb-8 transform transition-transform">
+                    <!-- Ditjana melalui JS -->
+                </div>
+
+                <button onclick="speakCurrentShape()" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold text-xl px-8 py-3 rounded-full shadow-lg border-b-4 border-indigo-700 flex items-center space-x-3">
+                    <i class="fa-solid fa-volume-high text-2xl"></i> <span class="lbl-sound">Bunyi</span>
+                </button>
+            </div>
+
+            <div class="flex space-x-6">
+                <button onclick="prevShape()" class="bg-gray-400 hover:bg-gray-500 text-white font-bold w-16 h-16 rounded-full text-2xl shadow-md border-b-4 border-gray-600 flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
+                <button onclick="nextShape()" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold w-16 h-16 rounded-full text-2xl shadow-md border-b-4 border-indigo-700 flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </div>
 
@@ -173,14 +234,9 @@
                 <h2 id="game-title" class="text-3xl font-bold text-pink-600">Tekan Warna</h2>
             </div>
 
-            <!-- Papan Kuiz Permainan -->
             <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl border-4 border-pink-300 text-center flex flex-col items-center">
                 <p id="game-instruction" class="text-2xl font-bold text-gray-700 mb-6">Mana satu warna: <span id="target-color-name" class="underline text-purple-600">Merah</span>?</p>
-                
-                <!-- Grid Pilihan Warna Bebola -->
-                <div id="color-options-grid" class="grid grid-cols-2 gap-6 w-full mb-4">
-                    <!-- Dinamik Butang Pilihan Warna Ditjana Di Sini -->
-                </div>
+                <div id="color-options-grid" class="grid grid-cols-2 gap-6 w-full mb-4"></div>
             </div>
         </div>
 
@@ -192,10 +248,9 @@
     </footer>
 
     <!-- ================= SISTEM & LOGIK APLIKASI ================= -->
-    <!-- Pakej Firebase Modular Modular SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         // Konfigurasi Firebase Anda
         const firebaseConfig = {
@@ -208,131 +263,189 @@
             appId: "1:952476759809:web:862a890ea142a8cb2e0d00"
         };
 
-        // Inisialisasi Firebase
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
         
-        // Hasilkan ID pengguna unik rawak simulasi tablet/telefon peranti kanak-kanak
-        let userId = localStorage.getItem('kk_pintar_userid');
-        if (!userId) {
-            userId = 'kid_' + Math.random().toString(36).substring(2, 9);
-            localStorage.setItem('kk_pintar_userid', userId);
-        }
+        let userId = localStorage.getItem('kk_pintar_userid') || ('kid_' + Math.random().toString(36).substring(2, 9));
+        localStorage.setItem('kk_pintar_userid', userId);
 
         const starsRef = ref(db, 'users/' + userId + '/stars');
 
-        // Pautan Pengkalan Data: Ambil nilai real-time bintang
         onValue(starsRef, (snapshot) => {
-            const data = snapshot.val();
-            state.stars = data || 0;
+            state.stars = snapshot.val() || 0;
             document.getElementById('starCount').innerText = state.stars;
         });
 
-        // Fungsi Tambah Bintang & Hantar ke Firebase
         window.rewardStar = function() {
             runTransaction(starsRef, (currentStars) => {
-                return (currentStars || 0) + 1;
+                let total = (currentStars || 0) + 1;
+                // Setiap 5 bintang, buat pesta bunga api kecil (Level up)
+                if (total % 5 === 0) {
+                    setTimeout(() => {
+                        speakText(state.lang === 'ms' ? "Hebat! Adik dapat tingkat baru!" : "Amazing! You reached a new level!");
+                    }, 800);
+                }
+                return total;
             });
             
-            // Letupan Confetti ganjaran visual
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
+            confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 } });
         };
     </script>
 
     <script>
-        // ================= KANDUNGAN DATA DWIBAHASA =================
+        // DATA DWIBAHASA APLIKASI
         const translations = {
             ms: {
                 welcome: "Jom Belajar Sambil Bermain!",
                 subtitle: "Pilih menu kegemaran adik di bawah:",
-                abcDesc: "Belajar sebutan & kenal objek",
-                numDesc: "Belajar mengira benda",
+                abcDesc: "Belajar sebutan A hingga Z",
+                numDesc: "Belajar mengira 1 hingga 20",
+                animalTitle: "Kenal Haiwan",
+                animalDesc: "Bunyi haiwan yang comel",
+                shapeTitle: "Bentuk Asas",
+                shapeDesc: "Bulat, Segi Empat & Bintang",
                 colorTitle: "Padan Warna",
                 colorDesc: "Permainan teka warna ceria",
                 back: "Kembali",
                 sound: "Bunyi",
+                soundEffect: "Bunyi Haiwan",
+                animalHeader: "Dunia Haiwan",
+                shapeHeader: "Kenal Bentuk",
                 gameInstruct: "Mana satu warna: ",
                 langBtn: "English 🇬🇧"
             },
             en: {
                 welcome: "Let's Learn & Play Together!",
                 subtitle: "Choose your favorite game below:",
-                abcDesc: "Learn letters & object names",
-                numDesc: "Learn how to count objects",
+                abcDesc: "Learn letters from A to Z",
+                numDesc: "Learn to count 1 to 20",
+                animalTitle: "Animal World",
+                animalDesc: "Cute animal sounds",
+                shapeTitle: "Basic Shapes",
+                shapeDesc: "Circles, Squares & Stars",
                 colorTitle: "Color Match",
                 colorDesc: "Fun color guessing game",
                 back: "Back",
                 sound: "Voice",
+                soundEffect: "Animal Sound",
+                animalHeader: "Animal Kingdom",
+                shapeHeader: "Learn Shapes",
                 gameInstruct: "Which one is: ",
                 langBtn: "Melayu 🇲🇾"
             }
         };
 
+        // KANDUNGAN PANDUAN LENGKAP A-Z
         const abcData = {
             ms: [
-                { char: 'A', word: 'Ayam', icon: 'fa-kiwi-bird' },
-                { char: 'B', word: 'Bola', icon: 'fa-baseball-ball' },
-                { char: 'C', word: 'Cawan', icon: 'fa-mug-hot' },
-                { char: 'D', word: 'Durian', icon: 'fa-apple-whole' },
-                { char: 'E', word: 'Epal', icon: 'fa-lemon' }
+                { char: 'A', word: 'Ayam', icon: 'fa-kiwi-bird' }, { char: 'B', word: 'Bola', icon: 'fa-baseball-ball' },
+                { char: 'C', word: 'Cawan', icon: 'fa-mug-hot' }, { char: 'D', word: 'Durian', icon: 'fa-apple-whole' },
+                { char: 'E', word: 'Epal', icon: 'fa-apple-whole' }, { char: 'F', word: 'Feri', icon: 'fa-ship' },
+                { char: 'G', word: 'Gajah', icon: 'fa-hippo' }, { char: 'H', word: 'Harimau', icon: 'fa-cat' },
+                { char: 'I', word: 'Ikan', icon: 'fa-fish' }, { char: 'J', word: 'Jam', icon: 'fa-clock' },
+                { char: 'K', word: 'Kasut', icon: 'fa-shoe-prints' }, { char: 'L', word: 'Lampu', icon: 'fa-lightbulb' },
+                { char: 'M', word: 'Mata', icon: 'fa-eye' }, { char: 'N', word: 'Nanas', icon: 'fa-lemon' },
+                { char: 'O', word: 'Oren', icon: 'fa-circle' }, { char: 'P', word: 'Pokok', icon: 'fa-tree' },
+                { char: 'Q', word: 'Quran', icon: 'fa-book' }, { char: 'R', word: 'Roti', icon: 'fa-bread-slice' },
+                { char: 'S', word: 'Susu', icon: 'fa-glass-water' }, { char: 'T', word: 'Topi', icon: 'fa-hat-cowboy' },
+                { char: 'U', word: 'Ubat', icon: 'fa-pills' }, { char: 'V', word: 'Van', icon: 'fa-truck' },
+                { char: 'W', word: 'Wau', icon: 'fa-paper-plane' }, { char: 'X', word: 'Xilofon', icon: 'fa-cubes' },
+                { char: 'Y', word: 'Yo-yo', icon: 'fa-compact-disc' }, { char: 'Z', word: 'Zirafah', icon: 'fa-horse' }
             ],
             en: [
-                { char: 'A', word: 'Apple', icon: 'fa-apple-whole' },
-                { char: 'B', word: 'Ball', icon: 'fa-basketball' },
-                { char: 'C', word: 'Cat', icon: 'fa-cat' },
-                { char: 'D', word: 'Dog', icon: 'fa-dog' },
-                { char: 'E', word: 'Egg', icon: 'fa-egg' }
+                { char: 'A', word: 'Apple', icon: 'fa-apple-whole' }, { char: 'B', word: 'Ball', icon: 'fa-basketball' },
+                { char: 'C', word: 'Cat', icon: 'fa-cat' }, { char: 'D', word: 'Dog', icon: 'fa-dog' },
+                { char: 'E', word: 'Egg', icon: 'fa-egg' }, { char: 'F', word: 'Fish', icon: 'fa-fish' },
+                { char: 'G', word: 'Goat', icon: 'fa-otter' }, { char: 'H', word: 'Hat', icon: 'fa-hat-wizard' },
+                { char: 'I', word: 'Ice Cream', icon: 'fa-ice-cream' }, { char: 'J', word: 'Jar', icon: 'fa-jar' },
+                { char: 'K', word: 'Kite', icon: 'fa-paper-plane' }, { char: 'L', word: 'Lion', icon: 'fa-cat' },
+                { char: 'M', word: 'Monkey', icon: 'fa-frog' }, { char: 'N', word: 'Net', icon: 'fa-network-wired' },
+                { char: 'O', word: 'Owl', icon: 'fa-dove' }, { char: 'P', word: 'Pen', icon: 'fa-pen' },
+                { char: 'Q', word: 'Queen', icon: 'fa-crown' }, { char: 'R', word: 'Ring', icon: 'fa-ring' },
+                { char: 'S', word: 'Sun', icon: 'fa-sun' }, { char: 'T', word: 'Tree', icon: 'fa-tree' },
+                { char: 'U', word: 'Umbrella', icon: 'fa-umbrella' }, { char: 'V', word: 'Van', icon: 'fa-van-shuttle' },
+                { char: 'W', word: 'Watch', icon: 'fa-stopwatch' }, { char: 'X', word: 'X-ray', icon: 'fa-bone' },
+                { char: 'Y', word: 'Yo-yo', icon: 'fa-compact-disc' }, { char: 'Z', word: 'Zebra', icon: 'fa-horse' }
+            ]
+        };
+
+        // KANDUNGAN MODUL KEDUA: KATA HAIWAN & SIMULASI SUARA
+        const animalData = {
+            ms: [
+                { name: 'Kucing', icon: 'fa-cat', soundText: 'Meow! Meow!', audioDesc: 'bunyi meow kucing' },
+                { name: 'Anjing', icon: 'fa-dog', soundText: 'Woof! Woof!', audioDesc: 'bunyi salakan anjing' },
+                { name: 'Burung', icon: 'fa-dove', soundText: 'Chirp! Tweet!', audioDesc: 'bunyi kicauan burung' },
+                { name: 'Katak', icon: 'fa-frog', soundText: 'Ribbit! Croak!', audioDesc: 'bunyi katak' },
+                { name: 'Kuda', icon: 'fa-horse', soundText: 'Neighhh!', audioDesc: 'bunyi ringkikan kuda' },
+                { name: 'Lembu', icon: 'fa-cow', soundText: 'Mooouu!', audioDesc: 'bunyi lembu' }
+            ],
+            en: [
+                { name: 'Cat', icon: 'fa-cat', soundText: 'Meow! Meow!', audioDesc: 'cat meowing' },
+                { name: 'Dog', icon: 'fa-dog', soundText: 'Woof! Woof!', audioDesc: 'dog barking' },
+                { name: 'Bird', icon: 'fa-dove', soundText: 'Chirp! Tweet!', audioDesc: 'bird chirping' },
+                { name: 'Frog', icon: 'fa-frog', soundText: 'Ribbit! Croak!', audioDesc: 'frog croaking' },
+                { name: 'Horse', icon: 'fa-horse', soundText: 'Neighhh!', audioDesc: 'horse neighing' },
+                { name: 'Cow', icon: 'fa-cow', soundText: 'Mooouu!', audioDesc: 'cow mooing' }
+            ]
+        };
+
+        // KANDUNGAN MODUL KETIGA: BENTUK ASAS
+        const shapeData = {
+            ms: [
+                { name: 'Bulat', html: '<div class="w-32 h-32 bg-indigo-500 rounded-full shadow-lg"></div>' },
+                { name: 'Segi Empat Sama', html: '<div class="w-32 h-32 bg-red-500 shadow-lg rounded-xl"></div>' },
+                { name: 'Bintang', html: '<div class="text-9xl text-amber-400 drop-shadow-md"><i class="fa-solid fa-star"></i></div>' },
+                { name: 'Segi Tiga', html: '<div class="w-0 h-0 border-l-[65px] border-l-transparent border-r-[65px] border-r-transparent border-b-[120px] border-b-emerald-500 filter drop-shadow-md"></div>' }
+            ],
+            en: [
+                { name: 'Circle', html: '<div class="w-32 h-32 bg-indigo-500 rounded-full shadow-lg"></div>' },
+                { name: 'Square', html: '<div class="w-32 h-32 bg-red-500 shadow-lg rounded-xl"></div>' },
+                { name: 'Star', html: '<div class="text-9xl text-amber-400 drop-shadow-md"><i class="fa-solid fa-star"></i></div>' },
+                { name: 'Triangle', html: '<div class="w-0 h-0 border-l-[65px] border-l-transparent border-r-[65px] border-r-transparent border-b-[120px] border-b-emerald-500 filter drop-shadow-md"></div>' }
             ]
         };
 
         const colorData = {
             ms: [
-                { name: 'Merah', hex: '#EF4444' },
-                { name: 'Biru', hex: '#3B82F6' },
-                { name: 'Hijau', hex: '#10B981' },
-                { name: 'Kuning', hex: '#F59E0B' },
-                { name: 'Merah Jambu', hex: '#EC4899' },
-                { name: 'Ungu', hex: '#8B5CF6' }
+                { name: 'Merah', hex: '#EF4444' }, { name: 'Biru', hex: '#3B82F6' },
+                { name: 'Hijau', hex: '#10B981' }, { name: 'Kuning', hex: '#F59E0B' },
+                { name: 'Merah Jambu', hex: '#EC4899' }, { name: 'Ungu', hex: '#8B5CF6' }
             ],
             en: [
-                { name: 'Red', hex: '#EF4444' },
-                { name: 'Blue', hex: '#3B82F6' },
-                { name: 'Green', hex: '#10B981' },
-                { name: 'Yellow', hex: '#F59E0B' },
-                { name: 'Pink', hex: '#EC4899' },
-                { name: 'Purple', hex: '#8B5CF6' }
+                { name: 'Red', hex: '#EF4444' }, { name: 'Blue', hex: '#3B82F6' },
+                { name: 'Green', hex: '#10B981' }, { name: 'Yellow', hex: '#F59E0B' },
+                { name: 'Pink', hex: '#EC4899' }, { name: 'Purple', hex: '#8B5CF6' }
             ]
         };
 
-        const numberIcons = ['fa-apple-whole', 'fa-carrot', 'fa-candy-cane', 'fa-fish', 'fa-ice-cream'];
+        const numberIcons = ['fa-apple-whole', 'fa-carrot', 'fa-candy-cane', 'fa-fish', 'fa-ice-cream', 'fa-cookie', 'fa-strawberry'];
 
-        // APPS GLOBAL STATE
+        // KAWALAN STATE KANDUNGAN GLOBAL
         let state = {
             lang: 'ms',
             stars: 0,
             currentAbcIdx: 0,
             currentNum: 1,
+            currentAnimalIdx: 0,
+            currentShapeIdx: 0,
             targetColor: null
         };
 
-        // ================= KAWALAN SKRIN & NAVIGATION =================
+        // NAVIGATION LOGIC
         function showScreen(screenId) {
-            // Sembunyikan semua skrin
             document.getElementById('screen-home').classList.add('hidden');
             document.getElementById('screen-abc').classList.add('hidden');
             document.getElementById('screen-numbers').classList.add('hidden');
+            document.getElementById('screen-animals').classList.add('hidden');
+            document.getElementById('screen-shapes').classList.add('hidden');
             document.getElementById('screen-colors').classList.add('hidden');
 
-            // Paparkan skrin yang dimintak
             document.getElementById(`screen-${screenId}`).classList.remove('hidden');
 
-            // Inisialisasi data berdasarkan skrin terpilih
             if (screenId === 'abc') updateABCScreen();
             if (screenId === 'numbers') updateNumberScreen();
+            if (screenId === 'animals') updateAnimalScreen();
+            if (screenId === 'shapes') updateShapeScreen();
             if (screenId === 'colors') generateColorGame();
         }
 
@@ -341,9 +454,10 @@
             localStorage.setItem('kk_pintar_lang', state.lang);
             applyLanguage();
             
-            // Segarkan data skrin aktif semasa tukar bahasa
             if (!document.getElementById('screen-abc').classList.contains('hidden')) updateABCScreen();
             if (!document.getElementById('screen-numbers').classList.contains('hidden')) updateNumberScreen();
+            if (!document.getElementById('screen-animals').classList.contains('hidden')) updateAnimalScreen();
+            if (!document.getElementById('screen-shapes').classList.contains('hidden')) updateShapeScreen();
             if (!document.getElementById('screen-colors').classList.contains('hidden')) generateColorGame();
         }
 
@@ -354,108 +468,93 @@
             document.getElementById('txt-subtitle').innerText = t.subtitle;
             document.getElementById('menu-abc-desc').innerText = t.abcDesc;
             document.getElementById('menu-123-desc').innerText = t.numDesc;
+            document.getElementById('menu-animal-title').innerText = t.animalTitle;
+            document.getElementById('menu-animal-desc').innerText = t.animalDesc;
+            document.getElementById('menu-shape-title').innerText = t.shapeTitle;
+            document.getElementById('menu-shape-desc').innerText = t.shapeDesc;
             document.getElementById('menu-color-title').innerText = t.colorTitle;
             document.getElementById('menu-color-desc').innerText = t.colorDesc;
-            document.getElementById('lbl-sound').innerText = t.sound;
-            document.getElementById('lbl-sound-num').innerText = t.sound;
+            document.getElementById('lbl-animal-header').innerText = t.animalHeader;
+            document.getElementById('lbl-shape-header').innerText = t.shapeHeader;
+            document.getElementById('lbl-sound-effect').innerText = t.soundEffect;
             
+            document.querySelectorAll('.lbl-sound').forEach(btn => btn.innerText = t.sound);
             document.querySelectorAll('.btn-back').forEach(btn => btn.innerText = t.back);
         }
 
-        // ================= SISTEM MODUL HURUF ABC =================
+        // ================= ENGINE STATE SETIAP KANDUNGAN MODUL =================
         function updateABCScreen() {
             const currentItem = abcData[state.lang][state.currentAbcIdx];
-            const charEl = document.getElementById('abc-char');
-            
-            charEl.innerText = currentItem.char;
+            document.getElementById('abc-char').innerText = currentItem.char;
             document.getElementById('abc-word').innerText = currentItem.word;
             document.getElementById('abc-icon').innerHTML = `<i class="fa-solid ${currentItem.icon}"></i>`;
-            
-            // Main bunyi secara automatik semasa skrin ditukar
             speakCurrentABC();
         }
+        function nextABC() { state.currentAbcIdx = (state.currentAbcIdx + 1) % abcData[state.lang].length; updateABCScreen(); }
+        function prevABC() { state.currentAbcIdx = (state.currentAbcIdx - 1 + abcData[state.lang].length) % abcData[state.lang].length; updateABCScreen(); }
+        function speakCurrentABC() { const item = abcData[state.lang][state.currentAbcIdx]; speakText(`${item.char}... ${item.word}`); }
 
-        function nextABC() {
-            state.currentAbcIdx = (state.currentAbcIdx + 1) % abcData[state.lang].length;
-            updateABCScreen();
-        }
-
-        function prevABC() {
-            state.currentAbcIdx = (state.currentAbcIdx - 1 + abcData[state.lang].length) % abcData[state.lang].length;
-            updateABCScreen();
-        }
-
-        function speakCurrentABC() {
-            const currentItem = abcData[state.lang][state.currentAbcIdx];
-            speakText(`${currentItem.char}... ${currentItem.word}`);
-        }
-
-        // ================= SISTEM MODUL NOMBOR 123 =================
         function updateNumberScreen() {
             document.getElementById('num-display').innerText = state.currentNum;
             const zone = document.getElementById('num-objects-zone');
             zone.innerHTML = '';
-            
-            // Pilih satu ikon rawak berulang mengikut nombor
             const iconClass = numberIcons[state.currentNum % numberIcons.length];
             
             for(let i = 0; i < state.currentNum; i++) {
-                const iconContainer = document.createElement('div');
-                iconContainer.className = "text-4xl text-sky-500 animate-bounce transition-all";
-                iconContainer.style.animationDelay = `${i * 0.1}s`;
-                iconContainer.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
-                zone.appendChild(iconContainer);
+                const item = document.createElement('div');
+                item.className = "text-4xl text-sky-500 animate-bounce";
+                item.style.animationDelay = `${i * 0.05}s`;
+                item.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
+                zone.appendChild(item);
             }
             speakCurrentNumber();
         }
+        function nextNum() { state.currentNum = state.currentNum < 20 ? state.currentNum + 1 : 1; updateNumberScreen(); }
+        function prevNum() { if (state.currentNum > 1) { state.currentNum--; updateNumberScreen(); } }
+        function speakCurrentNumber() { speakText(state.currentNum.toString()); }
 
-        function nextNum() {
-            if (state.currentNum < 10) {
-                state.currentNum++;
-                updateNumberScreen();
-            } else {
-                state.currentNum = 1; // Ulang balik dari 1
-                updateNumberScreen();
-            }
+        function updateAnimalScreen() {
+            const item = animalData[state.lang][state.currentAnimalIdx];
+            document.getElementById('animal-name').innerText = item.name;
+            document.getElementById('animal-icon').innerHTML = `<i class="fa-solid ${item.icon}"></i>`;
+            speakCurrentAnimal();
+        }
+        function nextAnimal() { state.currentAnimalIdx = (state.currentAnimalIdx + 1) % animalData[state.lang].length; updateAnimalScreen(); }
+        function prevAnimal() { state.currentAnimalIdx = (state.currentAnimalIdx - 1 + animalData[state.lang].length) % animalData[state.lang].length; updateAnimalScreen(); }
+        function speakCurrentAnimal() { speakText(animalData[state.lang][state.currentAnimalIdx].name); }
+        function makeAnimalSound() {
+            const item = animalData[state.lang][state.currentAnimalIdx];
+            speakText(item.soundText); // Melukis deskripsi bunyi haiwan secara vokal
         }
 
-        function prevNum() {
-            if (state.currentNum > 1) {
-                state.currentNum--;
-                updateNumberScreen();
-            }
+        function updateShapeScreen() {
+            const item = shapeData[state.lang][state.currentShapeIdx];
+            document.getElementById('shape-name').innerText = item.name;
+            document.getElementById('shape-visual-zone').innerHTML = item.html;
+            speakCurrentShape();
         }
+        function nextShape() { state.currentShapeIdx = (state.currentShapeIdx + 1) % shapeData[state.lang].length; updateShapeScreen(); }
+        function prevShape() { state.currentShapeIdx = (state.currentShapeIdx - 1 + shapeData[state.lang].length) % shapeData[state.lang].length; updateShapeScreen(); }
+        function speakCurrentShape() { speakText(shapeData[state.lang][state.currentShapeIdx].name); }
 
-        function speakCurrentNumber() {
-            speakText(state.currentNum.toString());
-        }
-
-        // ================= SISTEM PERMAINAN WARNA =================
         function generateColorGame() {
             const colorsList = colorData[state.lang];
-            // Pilih 1 warna sasaran secara rawak
             const target = colorsList[Math.floor(Math.random() * colorsList.length)];
             state.targetColor = target;
-
             document.getElementById('game-instruction').innerHTML = `${translations[state.lang].gameInstruct} <span class="underline font-black text-pink-600">${target.name}</span>?`;
             
-            // Sediakan pilihan jawapan termasuk yang betul (Total 4 Pilihan)
             let choices = [target];
             while (choices.length < 4) {
-                let randomColor = colorsList[Math.floor(Math.random() * colorsList.length)];
-                if (!choices.some(c => c.hex === randomColor.hex)) {
-                    choices.push(randomColor);
-                }
+                let rColor = colorsList[Math.floor(Math.random() * colorsList.length)];
+                if (!choices.some(c => c.hex === rColor.hex)) choices.push(rColor);
             }
-            // Kacau susunan butang jawapan
             choices.sort(() => Math.random() - 0.5);
 
             const grid = document.getElementById('color-options-grid');
             grid.innerHTML = '';
-
             choices.forEach(color => {
                 const btn = document.createElement('button');
-                btn.className = "h-28 w-full rounded-2xl shadow-md border-4 border-white active:scale-95 transition-transform cursor-pointer transform hover:scale-102";
+                btn.className = "h-28 w-full rounded-3xl shadow-md border-4 border-white active:scale-95 transition-all transform hover:scale-102 cursor-pointer";
                 btn.style.backgroundColor = color.hex;
                 btn.onclick = () => checkColorAnswer(color.hex, btn);
                 grid.appendChild(btn);
@@ -464,40 +563,29 @@
 
         function checkColorAnswer(selectedHex, buttonEl) {
             if (selectedHex === state.targetColor.hex) {
-                // Betul! Panggil fungsi ganjaran bintang global
-                if (window.rewardStar) {
-                    window.rewardStar();
-                }
+                if (window.rewardStar) window.rewardStar();
                 speakText(state.lang === 'ms' ? "Betul! Bijak!" : "Correct! Good job!");
-                
-                // Animasi butang hijau sukses sebelum muat kuiz baru
-                buttonEl.classList.add('border-emerald-500', 'animate-ping');
-                setTimeout(() => {
-                    generateColorGame();
-                }, 800);
+                buttonEl.classList.add('animate-ping');
+                setTimeout(() => generateColorGame(), 800);
             } else {
-                // Salah
                 speakText(state.lang === 'ms' ? "Cuba lagi" : "Try again");
-                buttonEl.classList.add('opacity-30', 'pointer-events-none');
+                buttonEl.classList.add('opacity-20', 'pointer-events-none');
             }
         }
 
-        // ================= ENGINE SEBUTAN SUARA (TTS) =================
+        // ENGINE TEXT-TO-SPEECH (TTS)
         function speakText(text) {
             if ('speechSynthesis' in window) {
-                // Hentikan suara sedia ada untuk elakkan bertindih
                 window.speechSynthesis.cancel();
-                
                 const utterance = new SpeechSynthesisUtterance(text);
-                // Set padanan kod bahasa
                 utterance.lang = state.lang === 'ms' ? 'ms-MY' : 'en-US';
-                utterance.rate = 0.85; // Kelajuan perlahan sedikit supaya mudah diikuti oleh kanak-kanak
-                utterance.pitch = 1.2; // Pitch ditinggikan sedikit untuk elemen mesra/comel
+                utterance.rate = 0.82; // Tempo kelajuan mesra kanak-kanak tadika
+                utterance.pitch = 1.25; // Suara riang sedikit
                 window.speechSynthesis.speak(utterance);
             }
         }
 
-        // SET ALIRAN PERMULAAN APLIKASI
+        // LOAD STARTUP
         window.addEventListener('DOMContentLoaded', () => {
             const savedLang = localStorage.getItem('kk_pintar_lang');
             if (savedLang) state.lang = savedLang;
